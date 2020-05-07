@@ -5,7 +5,7 @@
  * Time: 13:47
  */
 
-namespace local_facial\apis\aws;
+namespace local_facial\apis;
 
 class server_proccess {
     /**
@@ -56,14 +56,15 @@ class server_proccess {
     private static function send($metodo, $post) {
         try {
             $url = get_config('local_facial', 'url');
-            $url = preg_replace('/(https:\/\/.*?\/).*/', '$1', $url);
             $token = get_config('local_facial', 'token');
         } catch (\dml_exception $e) {
             sendError($e->getMessage());
         }
 
+        $url = "{$url}api/v1/{$metodo}";
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "{$url}api/v1/{$metodo}");
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ["authorization: {$token}"]);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
