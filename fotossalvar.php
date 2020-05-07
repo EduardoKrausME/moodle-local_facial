@@ -54,7 +54,7 @@ if ($proccess['status'] == 'error') {
             'captura', $proccess['path'],
             'datetime' => time(),
         ];
-        $DB->insert_record("local_facial_principal");
+        $DB->insert_record("local_facial_principal", $facial_principal);
     }
 
     sendSuccess();
