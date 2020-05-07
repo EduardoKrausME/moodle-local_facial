@@ -40,27 +40,25 @@ unlink($imageFile);
 if ($proccess['status'] == 'error') {
     sendError($proccess['error']);
 } else {
-    sendSuccess();
-}
 
-if ($proccess['default']) {
-    $DB->delete_records('local_facial_principal',
-        array(
+    if ($proccess['default']) {
+        $DB->delete_records('local_facial_principal',
+            array(
+                'courseid' => $course->id,
+                'userid' => $user->id,
+            ));
+
+        $facial_principal = (object)[
             'courseid' => $course->id,
             'userid' => $user->id,
-        ));
+            'captura', $proccess['path'],
+            'datetime' => time(),
+        ];
+        $DB->insert_record("local_facial_principal");
+    }
 
-    $facial_principal = (object)[
-        'courseid' => $course->id,
-        'userid' => $user->id,
-        'captura', $proccess['path'],
-        'datetime' => time(),
-    ];
-    $DB->insert_record("local_facial_principal");
+    sendSuccess();
 }
-
-sendError("Erro desconhecido!");
-
 
 function sendError($message) {
     ob_clean();
