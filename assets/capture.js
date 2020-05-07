@@ -75,7 +75,7 @@
                     captureButton.html ( bt_capturar ).prop ( "disabled", false );
                 }, function ( motivo ) {
                     console.log(motivo);
-                    error.html ( "Navegador não possui suporte a reconhecimento!<br><br>" +
+                    error.html ( "Navegador não possui câmera para acessar o reconhecimento!<br><br>" +
                         "Você precisa de um computador com WebCam.<br><br>" +
                         "Sistema não funciona em iPhone e iPad. Use o aplicativo!" )
                         .addClass ( 'error' );
