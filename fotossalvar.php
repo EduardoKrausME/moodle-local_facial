@@ -34,13 +34,29 @@ if ($im == false) {
     sendErrorLeft(get_string('error_imageminvalida', 'local_facial'));
 }
 
-$proccess = \local_facial\apis\aws\server_proccess::sendCapture($imageFile, $courseid, $USER->id);
+$proccess = \local_facial\apis\server_proccess::sendCapture($imageFile, $courseid, $USER->id);
 unlink($imageFile);
 
 if ($proccess['status'] == 'error') {
     sendError($proccess['error']);
 } else {
     sendSuccess();
+}
+
+if ($proccess['default']) {
+    $DB->delete_records('local_facial_principal',
+        array(
+            'courseid' => $course->id,
+            'userid' => $user->id,
+        ));
+
+    $facial_principal = (object)[
+        'courseid' => $course->id,
+        'userid' => $user->id,
+        'captura', $proccess['path'],
+        'datetime' => time(),
+    ];
+    $DB->insert_record("local_facial_principal");
 }
 
 sendError("Erro desconhecido!");

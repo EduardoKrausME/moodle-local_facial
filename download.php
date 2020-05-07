@@ -25,7 +25,7 @@ require_capability('moodle/user:create', $systemcontext);
 require_capability('moodle/user:update', $systemcontext);
 
 $prefix = "curso-{$courseid}/usuario-{$userid}/";
-$capturas = \local_facial\apis\aws\server_proccess::listCaptures($courseid, $userid);
+$capturas = \local_facial\apis\server_proccess::listCaptures($courseid, $userid);
 
 if (isset($capturas['data'][0])) {
 

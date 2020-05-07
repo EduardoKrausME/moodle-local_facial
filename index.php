@@ -109,7 +109,7 @@ if ($file) {
             $capturaPrincipal = "";
         }
 
-        $capturas = \local_facial\apis\aws\server_proccess::listCaptures($course->id, $userid);
+        $capturas = \local_facial\apis\server_proccess::listCaptures($course->id, $userid);
 
         if (isset($capturas['data'][0])) {
             echo "<table cellspacing=\"0\" class=\"flexible reportlog generaltable generalbox\">
